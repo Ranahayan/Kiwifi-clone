@@ -1,5 +1,9 @@
 import React from "react";
+import '../styles/loginPage.css';
+
 
 export default function Login() {
-  return <div>I am gonna start login page</div>;
+  return <div className="loginPage">
+      <img src="../assets/kiwify-logo.png" alt="" />
+    </div>;
 }
