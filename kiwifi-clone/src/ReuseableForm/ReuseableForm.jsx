@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Joi from "joi";
 import InputFeild from "./Input";
-import InputPasswordFeild from "./passwordInput";
 
 const ReuseableForm = ({ schema, validations, doSubmit }) => {
   const [data, setData] = useState({});
@@ -74,18 +73,6 @@ const ReuseableForm = ({ schema, validations, doSubmit }) => {
     );
   };
 
-  const renderPasswordInput = (name, label) => {
-    return (
-      <InputPasswordFeild
-        name={name}
-        label={label}
-        value={data[name] || ""}
-        onChange={handleOnChange}
-        error={errors[name]}
-      />
-    );
-  };
-
   const matchPasswords = (value) => {
     return value !== data.password ? true : false;
   };
@@ -94,7 +81,6 @@ const ReuseableForm = ({ schema, validations, doSubmit }) => {
     handleOnChange,
     renderButton,
     renderInput,
-    renderPasswordInput,
     matchPasswords,
   };
 };
