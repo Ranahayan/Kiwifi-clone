@@ -1,4 +1,3 @@
-import { rest } from "lodash";
 import React from "react";
 import "../styles/style.css";
 
@@ -13,8 +12,9 @@ const CheckInputFeild = ({ error, ...rest }) => {
         id="termsCheckbox"
       />
       <label className="form-check-label" for="termsCheckbox">
-        I have read and accept kiwify's <a>terms</a> of use ,{" "}
-        <a>software license terms</a> ,<a>content policy</a>.
+        I have read and accept kiwify's <a href="/random">terms</a> of use ,{" "}
+        <a href="/random">software license terms</a> ,
+        <a href="/random">content policy</a>.
       </label>
       {error && (
         <div className="text-danger mt-1">

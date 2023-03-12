@@ -1,22 +1,12 @@
 import React from "react";
-import { useState } from "react";
 import ReuseableForm from "../ReuseableForm/ReuseableForm";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import logoImg from "../assets/kiwify-logo.png";
-
 
 import "../styles/style.css";
 const Joi = require("joi");
 
 export default function Register() {
-  const [data, setData] = useState({
-    email: "",
-    repeatEmail: "",
-    password: "",
-  });
-
-  const navigate = useNavigate();
-
   const validations = {
     email: Joi.string()
       .pattern(/^\S+@\S+\.\S+$/)
@@ -55,7 +45,7 @@ export default function Register() {
     await saveUser(data);
   }
 
-  async function saveUser(data) { }
+  async function saveUser(data) {}
 
   const {
     renderButton,
@@ -74,11 +64,10 @@ export default function Register() {
       <div className="contentArea d-flex flex-column align-items-center">
         <div className="logoArea">
           <img src={logoImg} alt="" />
-
         </div>
         <span className="heading-1">create new account</span>
         <p>
-          Or <Link to='/login'>log into your existing account</Link>
+          Or <Link to="/login">log into your existing account</Link>
         </p>
         <form className="main-form" style={{ width: "33vw" }}>
           {renderInput("email", "Email", "text")}
@@ -112,7 +101,9 @@ export default function Register() {
             className="w-100 d-flex align-items-cener justify-content-end"
             style={{ color: "#5850ec" }}
           >
-            <a style={{ fontSize: "0.875rem" }}>Forgot Password?</a>
+            <a href="/random" style={{ fontSize: "0.875rem" }}>
+              Forgot Password?
+            </a>
           </div>
           {renderCheckInputFeild()}
           {renderButton("create an account")}
