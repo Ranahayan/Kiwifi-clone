@@ -68,7 +68,9 @@ body {
   box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
   display: flex;
   flex-direction: column;
+  width:90% !important;
 }
+
 .loginPage form label {
   font-size: 0.875rem !important;
   color: #4b5563 !important;
@@ -102,11 +104,16 @@ body {
 .loginPage .contentArea {
   position: absolute;
   top: 10%;
+  /* border:1px solid black; */
+  width:470px;
+  min-width:470px;
+  max-width:470px;
 }
 .loginPage .contentArea .heading-1 {
   margin-top: 1rem;
   font-size: 1.875rem;
   font-weight: 800;
+  text-align: center;
 }
 .loginPage .contentArea p {
   color: #4b5563;
@@ -119,4 +126,21 @@ body {
 }
 .loginPage .contentArea a:hover {
   color: #6876f6;
+}
+
+
+
+
+/* media queries  */
+@media (max-width: 640px) {
+    /* styles for devices with maximum width of 768px */
+    .loginPage .contentArea {
+      /* color: red; */
+      width:100%;
+      min-width:100%;
+      max-width: 100%;
+    }
+    .loginPage form {
+        width:100% !important;
+      }
 }
