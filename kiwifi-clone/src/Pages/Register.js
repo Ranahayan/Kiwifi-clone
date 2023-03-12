@@ -1,8 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import ReuseableForm from "../ReuseableForm/ReuseableForm";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logoImg from "../assets/kiwify-logo.png";
+
 
 import "../styles/style.css";
 const Joi = require("joi");
@@ -54,7 +55,7 @@ export default function Register() {
     await saveUser(data);
   }
 
-  async function saveUser(data) {}
+  async function saveUser(data) { }
 
   const {
     renderButton,
@@ -69,12 +70,15 @@ export default function Register() {
   });
 
   return (
-    <div className="loginPage">
+    <div className="authPage">
       <div className="contentArea d-flex flex-column align-items-center">
-        <img src={logoImg} alt="" />
+        <div className="logoArea">
+          <img src={logoImg} alt="" />
+
+        </div>
         <span className="heading-1">create new account</span>
         <p>
-          Or <a>log into your existing account</a>
+          Or <Link to='/login'>log into your existing account</Link>
         </p>
         <form className="main-form" style={{ width: "33vw" }}>
           {renderInput("email", "Email", "text")}

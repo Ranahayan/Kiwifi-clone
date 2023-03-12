@@ -44,7 +44,7 @@ body {
   color: white;
 }
 
-.loginPage {
+.authPage {
   width: 100%;
   height: 100vh;
   /* background-color: #f9fafb; */
@@ -52,15 +52,15 @@ body {
   align-items: center;
   justify-content: center;
 }
-.loginPage img {
-  width: 60%;
-  height: 60%;
+.authPage img {
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   /* border:1px solid black; */
 }
 
 /* login form css  */
-.loginPage form {
+.authPage form {
   background-color: white;
   margin-top: 1rem;
   padding: 2rem 2rem;
@@ -71,37 +71,37 @@ body {
   width:90% !important;
 }
 
-.loginPage form label {
+.authPage form label {
   font-size: 0.875rem !important;
   color: #4b5563 !important;
 }
-.loginPage form input {
+.authPage form input {
   font-size: 0.875rem !important;
 }
-.loginPage form button {
+.authPage form button {
   margin-top: 1rem;
 }
-.loginPage form .errorMessage {
+.authPage form .errorMessage {
   font-size: 0.75rem !important;
   color: red !important;
 }
-.loginPage form a {
+.authPage form a {
   font-size: 0.875rem !important;
 }
-.loginPage form .terms a {
+.authPage form .terms a {
   color: rgb(77, 82, 89);
   text-decoration: underline;
 }
-.loginPage form .terms a:hover {
+.authPage form .terms a:hover {
   color: rgb(77, 82, 89);
   text-decoration: underline;
 }
-.loginPage form .form-check .form-check-input:checked {
+.authPage form .form-check .form-check-input:checked {
   background-color: #5850ec !important;
 }
 
 /* main content area css  */
-.loginPage .contentArea {
+.authPage .contentArea {
   position: absolute;
   top: 10%;
   /* border:1px solid black; */
@@ -109,23 +109,28 @@ body {
   min-width:470px;
   max-width:470px;
 }
-.loginPage .contentArea .heading-1 {
+.authPage .contentArea .heading-1 {
   margin-top: 1rem;
   font-size: 1.875rem;
   font-weight: 800;
   text-align: center;
 }
-.loginPage .contentArea p {
+.authPage .contentArea p {
   color: #4b5563;
   font-size: 1rem;
   margin-bottom: 0rem !important;
 }
-.loginPage .contentArea a {
+.authPage .contentArea a {
   color: #5850ec;
   cursor: pointer;
 }
-.loginPage .contentArea a:hover {
+.authPage .contentArea a:hover {
   color: #6876f6;
+}
+.authPage .contentArea .logoArea{
+    width:300px;
+    height:48px;
+    /* border:1px solid black; */
 }
 
 
@@ -134,13 +139,13 @@ body {
 /* media queries  */
 @media (max-width: 640px) {
     /* styles for devices with maximum width of 768px */
-    .loginPage .contentArea {
+    .authPage .contentArea {
       /* color: red; */
       width:100%;
       min-width:100%;
       max-width: 100%;
     }
-    .loginPage form {
+    .authPage form {
         width:100% !important;
       }
 }

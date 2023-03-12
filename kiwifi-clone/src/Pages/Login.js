@@ -1,10 +1,11 @@
 import React from "react";
 import "../styles/style.css";
 import logoImg from "../assets/kiwify-logo.png";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ReuseableForm from "../ReuseableForm/ReuseableForm";
 import { useState } from "react";
 const Joi = require("joi");
+
 
 export default function Login() {
   const [data, setData] = useState({
@@ -50,12 +51,14 @@ export default function Login() {
     doSubmit,
   });
   return (
-    <div className="loginPage">
+    <div className="authPage">
       <div className="contentArea d-flex flex-column align-items-center">
-        <img src={logoImg} alt="" />
+        <div className="logoArea">
+          <img src={logoImg} alt="" />
+        </div>
         <span className="heading-1">Login to your account</span>
         <p>
-          Or <a>register</a>
+          Or <Link to='/'>register</Link>
         </p>
         <form className="main-form" style={{ width: "33vw" }}>
           {renderInput("email", "E-mail", "text")}
