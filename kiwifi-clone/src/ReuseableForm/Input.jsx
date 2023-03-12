@@ -17,7 +17,7 @@ const InputFeild = ({ name, label, error, ...rest }) => {
       />
       {error && (
         <div className="text-danger mt-1">
-          <p className="regisetr-errorMessage">{error}</p>
+          <p className="errorMessage">{error}</p>
         </div>
       )}
     </div>

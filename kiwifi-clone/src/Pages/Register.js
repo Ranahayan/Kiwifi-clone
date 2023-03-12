@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import ReuseableForm from "../ReuseableForm/ReuseableForm";
 import { useNavigate } from "react-router-dom";
+import "../styles/style.css";
 const Joi = require("joi");
 
 export default function Register() {
@@ -11,7 +12,6 @@ export default function Register() {
     password: "",
   });
 
-  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const validations = {
@@ -37,15 +37,9 @@ export default function Register() {
         "string.empty": "This feild is mendatory",
       })
       .label("Repeat Email"),
-    password: Joi.string()
-      .min(8)
-      .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).*$/)
-      .required()
-      .messages({
-        "string.pattern.base":
-          "Password must contain at least one uppercase letter, one lowercase letter,\n one digit, one special character, and be at least 8 characters long",
-        "string.empty": "This feild is mendatory",
-      }),
+    password: Joi.string().required().messages({
+      "string.empty": "This feild is mendatory",
+    }),
   };
   const schema = Joi.object(validations);
 
@@ -53,16 +47,17 @@ export default function Register() {
     data.isAdmin = false;
     console.log(data);
     await saveUser(data);
-    console.log(errorMessage);
   }
 
   async function saveUser(data) {}
 
-  const { renderButton, renderInput, matchEmail } = ReuseableForm({
-    schema,
-    validations,
-    doSubmit,
-  });
+  const { renderButton, renderInput, matchEmail, errorMessage } = ReuseableForm(
+    {
+      schema,
+      validations,
+      doSubmit,
+    }
+  );
 
   return (
     <div className="main">
@@ -71,7 +66,27 @@ export default function Register() {
         {renderInput("repeatEmail", "repeat email", "text")}
         {renderInput("password", "Password", "password")}
         {errorMessage && (
-          <div className="alert alert-danger mt-1">{errorMessage}</div>
+          <div className="register-authError mt-4 mb-8">
+            <div className="d-flex align-items-center">
+              <div className="flex-shrink-0 .crossIcon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  width="24px"
+                  height="24px"
+                  className="crossIcon"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  ></path>
+                </svg>
+              </div>
+              <p className="register-authErrorMessage"> {errorMessage}</p>
+            </div>
+          </div>
         )}
 
         {renderButton("Register")}

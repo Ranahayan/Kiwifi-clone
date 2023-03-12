@@ -5,12 +5,16 @@ import InputFeild from "./Input";
 const ReuseableForm = ({ schema, validations, doSubmit }) => {
   const [data, setData] = useState({});
   const [errors, setErrors] = useState({});
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleForm = (event) => {
     event.preventDefault();
     const validationErrors = handleErrors();
     setErrors(validationErrors || {});
     if (validationErrors) return;
+    if (data.password.length < 8) {
+      setErrorMessage("auth/weak-password");
+    }
     const tempData = { ...data };
     setData(tempData);
     doSubmit(data);
@@ -75,7 +79,7 @@ const ReuseableForm = ({ schema, validations, doSubmit }) => {
 
   const renderButton = (label) => {
     return (
-      <button onClick={handleForm} className="btn btn-primary">
+      <button onClick={handleForm} className="btn customBtn ">
         {label}
       </button>
     );
@@ -103,6 +107,7 @@ const ReuseableForm = ({ schema, validations, doSubmit }) => {
     handleOnChange,
     renderButton,
     renderInput,
+    errorMessage,
     matchEmail: matchEmail,
   };
 };

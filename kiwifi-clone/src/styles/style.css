@@ -1,4 +1,4 @@
-.regisetr-errorMessage {
+.errorMessage {
     font-size: 0.75rem;
     color: red;
 }
@@ -6,4 +6,28 @@
 .regisetr-inputBorderForError{
     border-color: red !important;
 
+}
+
+.register-authError{
+    /* bg-red border-start-4 border-red p-4  */
+    --border-opacity: 1;
+border-left: 4px solid rgba(249, 128, 128, var(--border-opacity));
+    --bg-opacity: 1;
+    background-color: rgba(253, 242, 242, var(--bg-opacity));
+    padding: 1rem;
+}
+
+.register-authErrorMessage{
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    --text-opacity: 1;
+    color: rgba(200, 30, 30, var(--text-opacity));
+    margin: 0%;
+    margin-left: 0.75rem;
+
+}
+
+.crossIcon{
+    --text-opacity: 1;
+    color: rgba(249, 128, 128, var(--text-opacity));
 }
