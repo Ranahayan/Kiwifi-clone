@@ -1,0 +1,9 @@
+.regisetr-errorMessage {
+    font-size: 0.75rem;
+    color: red;
+}
+
+.regisetr-inputBorderForError{
+    border-color: red !important;
+
+}
