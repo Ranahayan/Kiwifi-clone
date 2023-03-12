@@ -1,13 +1,10 @@
 import React from "react";
-import '../styles/loginPage.css';
-import logoImg from '../assets/kiwify-logo.png';
+import "../styles/style.css";
+import logoImg from "../assets/kiwify-logo.png";
 import { useNavigate } from "react-router-dom";
 import ReuseableForm from "../ReuseableForm/ReuseableForm";
 import { useState } from "react";
 const Joi = require("joi");
-
-
-
 
 export default function Login() {
   const [data, setData] = useState({
@@ -48,7 +45,7 @@ export default function Login() {
   }
 
   async function saveUser(data) {
-    // sigup api 
+    // sigup api
   }
 
   const { renderButton, renderInput } = ReuseableForm({
@@ -56,32 +53,43 @@ export default function Login() {
     validations,
     doSubmit,
   });
-  return <div className="loginPage">
-    <div className="contentArea d-flex flex-column align-items-center">
-      <img src={logoImg} alt="" />
-      <span className="heading-1">Login to your account</span>
-      <p>Or <a>register</a></p>
-      <form className="main-form" style={{ width: "33vw" }}>
-        {renderInput("email", "E-mail", "text")}
-        {renderInput("password", "Password", "password")}
-        {errorMessage && (
-          <div className="alert alert-danger mt-1">{errorMessage}</div>
-        )}
+  return (
+    <div className="loginPage">
+      <div className="contentArea d-flex flex-column align-items-center">
+        <img src={logoImg} alt="" />
+        <span className="heading-1">Login to your account</span>
+        <p>
+          Or <a>register</a>
+        </p>
+        <form className="main-form" style={{ width: "33vw" }}>
+          {renderInput("email", "E-mail", "text")}
+          {renderInput("password", "Password", "password")}
+          {errorMessage && (
+            <div className="alert alert-danger mt-1">{errorMessage}</div>
+          )}
 
-        <div className="w-100 d-flex align-items-cener justify-content-end" style={{ color: '#5850ec' }}>
-          <a style={{ fontSize: '0.875rem' }}>Forgot Password?</a>
-        </div>
-        <div class="form-check terms">
-          <input class="form-check-input" type="checkbox" value="" id="termsCheckbox" />
-          <label class="form-check-label" for="termsCheckbox">
-            I have read and accept kiwify's <a>terms</a> of use , <a>software license terms</a> ,<a>content policy</a>.
-          </label>
-          <div className="checkboxError">
-            
+          <div
+            className="w-100 d-flex align-items-cener justify-content-end"
+            style={{ color: "#5850ec" }}
+          >
+            <a style={{ fontSize: "0.875rem" }}>Forgot Password?</a>
           </div>
-        </div>
-        {renderButton("To enter")}
-      </form>
+          <div class="form-check terms">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="termsCheckbox"
+            />
+            <label class="form-check-label" for="termsCheckbox">
+              I have read and accept kiwify's <a>terms</a> of use ,{" "}
+              <a>software license terms</a> ,<a>content policy</a>.
+            </label>
+            <div className="checkboxError"></div>
+          </div>
+          {renderButton("To enter")}
+        </form>
+      </div>
     </div>
-  </div>;
+  );
 }
