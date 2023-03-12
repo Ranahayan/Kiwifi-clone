@@ -2,7 +2,7 @@ import { rest } from "lodash";
 import React from "react";
 import "../styles/style.css";
 
-const InputFeild = ({ name, label, error, ...rest }) => {
+const InputFeild = ({ name, label, error, feildBorderstatus, ...rest }) => {
   return (
     <div className="form-group mb-3">
       <label htmlFor={name}>{label}</label>
@@ -12,7 +12,11 @@ const InputFeild = ({ name, label, error, ...rest }) => {
         name={name}
         autoComplete="new-password"
         className={
-          error ? "form-control regisetr-inputBorderForError" : "form-control"
+          error
+            ? !feildBorderstatus
+              ? "form-control regisetr-inputBorderForError"
+              : "form-control"
+            : "form-control"
         }
       />
       {error && (

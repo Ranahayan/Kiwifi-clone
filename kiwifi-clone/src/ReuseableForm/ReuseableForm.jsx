@@ -6,7 +6,7 @@ const ReuseableForm = ({ schema, validations, doSubmit }) => {
   const [data, setData] = useState({});
   const [errors, setErrors] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
-
+  const [feildBorderstatus, setFeildBorderstatus] = useState(false);
   const handleForm = (event) => {
     event.preventDefault();
     const validationErrors = handleErrors();
@@ -59,6 +59,8 @@ const ReuseableForm = ({ schema, validations, doSubmit }) => {
   };
 
   const handleOnSaveErrors = ({ name, value }) => {
+    setFeildBorderstatus(false);
+
     const toBeValidate = { [name]: value };
     let OnSaveSchema = "";
     if (name === "email" && data.repeatEmail) {
@@ -77,6 +79,10 @@ const ReuseableForm = ({ schema, validations, doSubmit }) => {
     return error ? error.details[0].message : null;
   };
 
+  const onFocus = () => {
+    setFeildBorderstatus(true);
+  };
+
   const renderButton = (label) => {
     return (
       <button onClick={handleForm} className="btn customBtn ">
@@ -93,8 +99,10 @@ const ReuseableForm = ({ schema, validations, doSubmit }) => {
         value={data[name] || ""}
         onChange={handleOnChange}
         onBlur={handleOnFocusOut}
+        onFocus={onFocus}
         type={type}
         error={errors[name]}
+        feildBorderstatus={feildBorderstatus}
       />
     );
   };
