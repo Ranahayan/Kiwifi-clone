@@ -1,12 +1,15 @@
 import { useState } from "react";
 import Joi from "joi";
 import InputFeild from "./Input";
+import CheckInputFeild from "./checkInput";
 
 const ReuseableForm = ({ schema, validations, doSubmit }) => {
   const [data, setData] = useState({});
   const [errors, setErrors] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
   const [feildBorderstatus, setFeildBorderstatus] = useState(false);
+  const [termsAndConditions, setTermsAndConditions] = useState(true);
+
   const handleForm = (event) => {
     event.preventDefault();
     const validationErrors = handleErrors();
@@ -14,6 +17,8 @@ const ReuseableForm = ({ schema, validations, doSubmit }) => {
     if (validationErrors) return;
     if (data.password.length < 8) {
       setErrorMessage("auth/weak-password");
+    } else {
+      setErrorMessage("");
     }
     const tempData = { ...data };
     setData(tempData);
@@ -21,15 +26,24 @@ const ReuseableForm = ({ schema, validations, doSubmit }) => {
   };
 
   const handleErrors = () => {
-    const { error } = schema.validate(data, {
+    let { error } = schema.validate(data, {
       abortEarly: false,
     });
-    if (!error) return null;
-    const validationErrors = {};
-    for (let item of error.details) {
-      validationErrors[item.path[0]] = item.message;
+    if (termsAndConditions && !error) {
+      error = {};
+      error.checkInputFeild = "This field is mandatory";
+      return error;
+    } else {
+      if (!error) return null;
+      const validationErrors = {};
+      for (let item of error.details) {
+        validationErrors[item.path[0]] = item.message;
+      }
+      if (termsAndConditions)
+        validationErrors.checkInputFeild = "This field is mandatory";
+
+      return validationErrors;
     }
-    return validationErrors;
   };
 
   const handleOnChange = ({ currentTarget: input }) => {
@@ -59,7 +73,7 @@ const ReuseableForm = ({ schema, validations, doSubmit }) => {
   };
 
   const handleOnSaveErrors = ({ name, value }) => {
-    setFeildBorderstatus(false);
+    setFeildBorderstatus(!termsAndConditions);
 
     const toBeValidate = { [name]: value };
     let OnSaveSchema = "";
@@ -80,7 +94,7 @@ const ReuseableForm = ({ schema, validations, doSubmit }) => {
   };
 
   const onFocus = () => {
-    setFeildBorderstatus(true);
+    setFeildBorderstatus(!termsAndConditions);
   };
 
   const renderButton = (label) => {
@@ -89,6 +103,10 @@ const ReuseableForm = ({ schema, validations, doSubmit }) => {
         {label}
       </button>
     );
+  };
+
+  const handleTermsAndConditions = () => {
+    setTermsAndConditions(!termsAndConditions);
   };
 
   const renderInput = (name, label, type) => {
@@ -106,7 +124,14 @@ const ReuseableForm = ({ schema, validations, doSubmit }) => {
       />
     );
   };
-
+  const renderCheckInputFeild = () => {
+    return (
+      <CheckInputFeild
+        error={errors["checkInputFeild"]}
+        onClick={handleTermsAndConditions}
+      />
+    );
+  };
   const matchEmail = (value) => {
     return value !== data.email ? true : false;
   };
@@ -116,6 +141,7 @@ const ReuseableForm = ({ schema, validations, doSubmit }) => {
     renderButton,
     renderInput,
     errorMessage,
+    renderCheckInputFeild,
     matchEmail: matchEmail,
   };
 };
