@@ -6,3 +6,31 @@
     align-items: center;
     justify-content: center;
 }
+.loginPage img{
+    width:60%;
+    height:60%;
+    object-fit: contain;
+    /* border:1px solid black; */
+}
+.loginPage .contentArea{
+    position:absolute;
+    top:10%;
+    
+    /* left:40%; */
+}
+.loginPage .contentArea .heading-1{
+    margin-top:1rem;
+    font-size: 1.875rem;
+    font-weight: 800;
+}
+.loginPage .contentArea p{
+    color:#4b5563;
+    font-size: 1rem;
+}
+.loginPage .contentArea a{
+    color: #5850ec;
+    cursor: pointer;
+}
+.loginPage .contentArea a:hover{
+    color:#6876f6;
+}
