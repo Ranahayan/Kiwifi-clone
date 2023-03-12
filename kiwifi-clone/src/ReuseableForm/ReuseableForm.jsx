@@ -29,32 +29,53 @@ const ReuseableForm = ({ schema, validations, doSubmit }) => {
   };
 
   const handleOnChange = ({ currentTarget: input }) => {
-    let validationErrors = { ...errors };
-    let newMessage = handleOnSaveErrors(input);
-    if (newMessage) validationErrors[input.name] = newMessage;
-    else delete validationErrors[input.name];
-    console.log(newMessage);
     let value = input.value;
     let updatedData = { ...data };
     updatedData[input.name] = value;
     setData(updatedData);
+  };
+
+  const handleOnFocusOut = ({ currentTarget: input }) => {
+    let validationErrors = { ...errors };
+    let newMessage = handleOnSaveErrors(input);
+    if (newMessage) {
+      newMessage === "Email does not match"
+        ? (validationErrors["repeatEmail"] = newMessage)
+        : (validationErrors[input.name] = newMessage);
+    } else {
+      if (
+        input.name === "email" &&
+        errors.repeatEmail === "Email does not match"
+      ) {
+        delete validationErrors["repeatEmail"];
+      }
+      delete validationErrors[input.name];
+    }
     setErrors(validationErrors);
   };
 
   const handleOnSaveErrors = ({ name, value }) => {
     const toBeValidate = { [name]: value };
-    const OnSaveSchema = Joi.object({ [name]: validations[name] });
+    let OnSaveSchema = "";
+    if (name === "email" && data.repeatEmail) {
+      toBeValidate.repeatEmail = data.repeatEmail;
+      OnSaveSchema = Joi.object({
+        [name]: validations[name],
+        repeatEmail: validations.repeatEmail,
+      });
+    } else {
+      OnSaveSchema = Joi.object({
+        [name]: validations[name],
+      });
+    }
     const { error } = OnSaveSchema.validate(toBeValidate);
+    console.log(error);
     return error ? error.details[0].message : null;
   };
 
   const renderButton = (label) => {
     return (
-      <button
-        disabled={handleErrors()}
-        onClick={handleForm}
-        className="btn btn-primary"
-      >
+      <button onClick={handleForm} className="btn btn-primary">
         {label}
       </button>
     );
@@ -67,21 +88,22 @@ const ReuseableForm = ({ schema, validations, doSubmit }) => {
         label={label}
         value={data[name] || ""}
         onChange={handleOnChange}
+        onBlur={handleOnFocusOut}
         type={type}
         error={errors[name]}
       />
     );
   };
 
-  const matchPasswords = (value) => {
-    return value !== data.password ? true : false;
+  const matchEmail = (value) => {
+    return value !== data.email ? true : false;
   };
   return {
     handleForm,
     handleOnChange,
     renderButton,
     renderInput,
-    matchPasswords,
+    matchEmail: matchEmail,
   };
 };
 

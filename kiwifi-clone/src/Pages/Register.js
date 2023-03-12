@@ -15,14 +15,28 @@ export default function Register() {
   const navigate = useNavigate();
 
   const validations = {
-    name: Joi.string().min(3).required().label("Name"),
     email: Joi.string()
-      .email({
-        minDomainSegments: 2,
-        tlds: { allow: ["com", "net"] },
+      .pattern(/^\S+@\S+\.\S+$/)
+      .required()
+      .messages({
+        "string.empty": "This feild is mendatory",
+        "string.pattern.base": "Invalid email formate",
+        "string.email": "Invalid email format",
+      })
+      .label("Email"),
+    repeatEmail: Joi.string()
+      .custom((value, helper) => {
+        if (matchEmail(value)) {
+          return helper.message("Email does not match");
+        }
+
+        return value;
       })
       .required()
-      .label("Email"),
+      .messages({
+        "string.empty": "This feild is mendatory",
+      })
+      .label("Repeat Email"),
     password: Joi.string()
       .min(8)
       .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).*$/)
@@ -30,16 +44,8 @@ export default function Register() {
       .messages({
         "string.pattern.base":
           "Password must contain at least one uppercase letter, one lowercase letter,\n one digit, one special character, and be at least 8 characters long",
+        "string.empty": "This feild is mendatory",
       }),
-    confirmPassword: Joi.string()
-      .custom((value, helper) => {
-        if (matchPasswords(value)) {
-          return helper.message("Confirm Password must match password");
-        }
-
-        return value;
-      })
-      .required(),
   };
   const schema = Joi.object(validations);
 
@@ -52,7 +58,7 @@ export default function Register() {
 
   async function saveUser(data) {}
 
-  const { renderButton, renderInput, matchPasswords } = ReuseableForm({
+  const { renderButton, renderInput, matchEmail } = ReuseableForm({
     schema,
     validations,
     doSubmit,
@@ -61,10 +67,9 @@ export default function Register() {
   return (
     <div className="main">
       <form className="container main-form pt-3 pb-3" style={{ width: "40vw" }}>
-        {renderInput("name", "Name", "name")}
-        {renderInput("email", "Email", "email")}
-        {/* {renderPasswordInput("password", "Password")}
-        {renderPasswordInput("confirmPassword", "Confirm Password")} */}
+        {renderInput("email", "Email", "text")}
+        {renderInput("repeatEmail", "repeat email", "text")}
+        {renderInput("password", "Password", "password")}
         {errorMessage && (
           <div className="alert alert-danger mt-1">{errorMessage}</div>
         )}
